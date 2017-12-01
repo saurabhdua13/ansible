@@ -1,0 +1,19 @@
+---
+- hosts: all
+  remote_user: ubuntu
+  become: yes
+  become_method: sudo
+  tasks:
+  - name: ensure apache is at the latest version
+    apt: name=apache2 state=latest
+    notify:
+    - restart apache
+  - name: apache service status check
+    service:
+      name: apache2
+      state: status
+      register: result
+  - debug: var=result
+  handlers:
+    - name: restart apache
+      service: name=apache2 state=restarted

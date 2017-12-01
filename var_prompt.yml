@@ -1,0 +1,18 @@
+---
+- hosts: all
+  remote_user: ubuntu
+  become: yes
+  become_method: sudo
+  gather_facts: '{{gather}}'
+  vars_prompt:
+    - name: pkg
+      prompt: what is the package name
+    - name: gather
+      prompt: gather yes or no
+  tasks:
+  - name: telnet installation
+    apt:
+      name: '{{pkg}}'
+      state: latest
+
+    

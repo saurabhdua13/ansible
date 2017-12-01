@@ -1,0 +1,16 @@
+---
+- hosts: all
+  remote_user: ubuntu
+  become: yes
+  become_method: sudo
+  gather_facts: no
+  tasks:
+  - name: apache installation
+    apt:
+      name: apache2
+      state: latest
+      notify: restart apache 
+  handlers: restart apache
+  - name: start service
+    service: name=apache2 state=restarted
+    

@@ -1,0 +1,15 @@
+---
+- hosts: all
+  remote_user: ubuntu
+  become: yes
+  become_method: sudo
+  gather_facts: '{{gather}}'
+  vars_files:
+   - /home/ubuntu/ansible/conf/var.yml 
+  tasks:
+  - name: telnet installation
+    apt:
+      name: '{{pkg}}'
+      state: latest
+
+    
